@@ -1,0 +1,24 @@
+---
+resources:
+  - name: sources
+    type: git
+    source:
+      uri: https://github.com/fouadh/springboot-sample-app
+      branch: master
+
+  - name: ops
+    type: git
+    source:
+      uri: https://github.com/fouadh/springboot-sample-app-ops
+      branch: master
+
+jobs:
+  - name: build
+    public: true
+    plan:
+      - get: sources
+      - get: ops
+      - task: build-app
+        file: ops/cicd/concourse/tasks/build-app.yml
+
+
